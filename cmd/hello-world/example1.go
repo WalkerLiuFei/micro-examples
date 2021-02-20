@@ -11,18 +11,17 @@ type Greeter struct{}
 
 func (g *Greeter) Hello(ctx context.Context, req *greeter.Request, rsp *greeter.Response) error {
 	rsp.Greeting = "Hello" + req.Name
- 	return nil
+	return nil
 }
 
 func main() {
 	service := micro.NewService(
 		micro.Name("helloworld"),
-		micro.Address("127.0.0.1:8888"),
 	)
 
 	service.Init()
 
-	greeter.RegisterGreeterHandler(service.Server(),new(Greeter))
+	greeter.RegisterGreeterHandler(service.Server(), new(Greeter))
 	if err := service.Run(); err != nil {
 		log.Fatal(err)
 	}
